@@ -90,6 +90,9 @@
                             id="setting/auto/skip"/>
 
                     <brls:BooleanCell
+                            id="setting/auto/sponsorblock"/>
+
+                    <brls:BooleanCell
                             id="setting/auto/exit"/>
 
                     <brls:BooleanCell
@@ -101,6 +104,29 @@
                     <brls:BooleanCell
                             id="setting/history/log"/>
 
+                </brls:Box>
+                <brls:Header
+                        width="auto"
+                        height="auto"
+                        title="@i18n/wiliwili/player/setting/sponsorblock/header"
+                        marginBottom="0px"/>
+                <brls:Box
+                        width="100%"
+                        height="auto"
+                        axis="column"
+                        marginBottom="30px">
+                    <brls:InputCell
+                            id="setting/sponsorblock/server"/>
+                    <brls:DetailCell
+                            id="setting/sponsorblock/test"/>
+                    <brls:DetailCell
+                            id="setting/sponsorblock/mode"/>
+                    <brls:SliderCell
+                            id="setting/sponsorblock/min_duration"/>
+                    <brls:BooleanCell
+                            id="setting/sponsorblock/marker"/>
+                    <brls:BooleanCell
+                            id="setting/sponsorblock/toast"/>
                 </brls:Box>
                 <brls:Header
                         id="setting/video/custom/header"

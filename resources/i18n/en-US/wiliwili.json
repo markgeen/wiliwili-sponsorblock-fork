@@ -396,6 +396,9 @@
         "skip_hint2": "Turn off skip opening credits from next video",
         "skip_hint3": "Use custom opening credits from next video",
         "skip_hint4": "Disable custom opening credits from next video",
+        "sponsorblock": "Skip sponsor segments",
+        "sponsorblock_hint1": "Enabled: skip segments marked by SponsorBlock",
+        "sponsorblock_hint2": "Disabled: sponsor segments will not be skipped",
         "wiki": "Access our wiki to learn how shader works"
       },
       "season": {
@@ -413,6 +416,24 @@
       },
       "shader": {
         "header": "Shader"
+      },
+      "sponsorblock": {
+        "header": "SponsorBlock settings",
+        "server": "Server address",
+        "server_hint": "Saved automatically, no restart needed",
+        "test": "Test server connection",
+        "test_hint": "Tap to test",
+        "testing": "Testing...",
+        "test_ok": "Connection OK",
+        "test_fail": "Connection failed",
+        "mode": "Skip strategy",
+        "mode0": "Sponsor only",
+        "mode1": "Sponsor + self-promo",
+        "mode2": "All skippable segments",
+        "mode_hint": "Choose which segment types to skip automatically",
+        "min_duration": "Minimum segment duration",
+        "marker": "Show markers on progress bar",
+        "toast": "Show skip notification"
       }
     },
     "cast": {

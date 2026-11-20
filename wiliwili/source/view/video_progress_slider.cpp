@@ -9,6 +9,20 @@
 
 #include "view/video_progress_slider.hpp"
 #include "view/svg_image.hpp"
+#include "utils/sponsorblock_helper.hpp"
+#include "view/mpv_core.hpp"
+
+namespace {
+NVGcolor sponsorMarkColor(const std::string& category) {
+    if (category == "sponsor") return nvgRGBf(1.0f, 0.72f, 0.0f);
+    if (category == "selfpromo") return nvgRGBf(0.0f, 0.78f, 1.0f);
+    if (category == "intro") return nvgRGBf(0.65f, 0.45f, 1.0f);
+    if (category == "outro") return nvgRGBf(0.35f, 0.55f, 1.0f);
+    if (category == "interaction") return nvgRGBf(0.35f, 0.85f, 0.45f);
+    if (category == "filler" || category == "preview") return nvgRGBf(0.9f, 0.45f, 0.65f);
+    return nvgRGBf(0.75f, 0.75f, 0.75f);
+}
+}  // namespace
 
 
 VideoProgressSlider::VideoProgressSlider() {
@@ -188,6 +202,34 @@ void VideoProgressSlider::draw(NVGcontext* vg, float x, float y, float width, fl
             nvgFill(vg);
         }
         child->frame(ctx);
+    }
+
+    // 空降助手：在进度条上叠加按分类着色的片段区间
+    auto marks = SponsorBlockHelper::instance().getMarks();
+    auto duration = MPVCore::instance().duration;
+    if (!marks.empty() && duration > 0) {
+        float trackX     = x + 30;
+        float trackWidth = width - 60;
+        if (trackWidth > 0) {
+            float markHeight = 4;
+            float markY      = y + height / 2 - markHeight / 2;
+            for (const auto& mark : marks) {
+                float start = static_cast<float>(mark.start / duration);
+                float end   = static_cast<float>(mark.end / duration);
+                if (start < 0) start = 0;
+                if (end > 1) end = 1;
+                if (start > 1 || end < 0 || end <= start) continue;
+
+                float x1 = trackX + start * trackWidth;
+                float x2 = trackX + end * trackWidth;
+                if (x2 - x1 < 1) x2 = x1 + 1;
+
+                nvgBeginPath(vg);
+                nvgRoundedRect(vg, x1, markY, x2 - x1, markHeight, 2);
+                nvgFillColor(vg, a(sponsorMarkColor(mark.category)));
+                nvgFill(vg);
+            }
+        }
     }
 }
 

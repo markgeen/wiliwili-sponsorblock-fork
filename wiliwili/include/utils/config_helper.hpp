@@ -44,6 +44,12 @@ enum class SettingItem {
     PLAYER_BOTTOM_BAR,
     PLAYER_HIGHLIGHT_BAR,
     PLAYER_SKIP_OPENING_CREDITS,
+    PLAYER_SKIP_SPONSORBLOCK, // 空降助手跳广告
+    PLAYER_SPONSORBLOCK_SERVER,        // 空降助手服务器地址
+    PLAYER_SPONSORBLOCK_MARKER,        // 进度条片段标识
+    PLAYER_SPONSORBLOCK_TOAST,         // 跳过提示
+    PLAYER_SPONSORBLOCK_MIN_DURATION,  // 最短片段时长（秒）
+    PLAYER_SPONSORBLOCK_MODE,          // 跳过策略：0 仅赞助 / 1 赞助+推广 / 2 全部
     PLAYER_LOW_QUALITY,
     PLAYER_INMEMORY_CACHE,
     PLAYER_HWDEC,

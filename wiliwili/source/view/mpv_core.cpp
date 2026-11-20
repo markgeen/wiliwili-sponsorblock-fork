@@ -12,6 +12,7 @@
 #include "utils/config_helper.hpp"
 #include "utils/number_helper.hpp"
 #include "utils/crash_helper.hpp"
+#include "utils/sponsorblock_helper.hpp"
 #include "view/mpv_core.hpp"
 
 #ifdef MPV_BUNDLE_DLL
@@ -1014,6 +1015,8 @@ void MPVCore::eventMainLoop() {
                             if (video_progress != (int64_t)playback_time) {
                                 video_progress = (int64_t)playback_time;
                                 mpvCoreEvent.fire(MpvEventEnum::UPDATE_PROGRESS);
+                                // 空降助手：命中标注的广告片段则跳转
+                                SponsorBlockHelper::instance().checkAndSkip();
                                 // 判断是否需要暂停播放
                                 if (CLOSE_TIME > 0 && wiliwili::getUnixTime() > CLOSE_TIME) {
                                     CLOSE_TIME = 0;

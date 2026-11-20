@@ -396,6 +396,9 @@
         "skip_hint2": "从下一个视频开始，关闭跳过片头片尾",
         "skip_hint3": "从下一个视频开始，使用自定义的片头片尾",
         "skip_hint4": "从下一个视频开始，停用自定义的片头片尾",
+        "sponsorblock": "空降助手跳广告",
+        "sponsorblock_hint1": "已开启：自动跳过空降助手标注的恰饭片段",
+        "sponsorblock_hint2": "已关闭：不再跳过广告片段",
         "wiki": "查看项目 WIKI 获得详细说明"
       },
       "season": {
@@ -413,6 +416,24 @@
       },
       "shader": {
         "header": "着色器"
+      },
+      "sponsorblock": {
+        "header": "空降助手详细设置",
+        "server": "服务器地址",
+        "server_hint": "修改后自动保存，无需重启",
+        "test": "测试服务器连接",
+        "test_hint": "点击测试",
+        "testing": "测试中...",
+        "test_ok": "连接正常",
+        "test_fail": "连接失败",
+        "mode": "跳过策略",
+        "mode0": "仅恰饭片段",
+        "mode1": "恰饭 + 自我推广",
+        "mode2": "全部可跳过片段",
+        "mode_hint": "选择要自动跳过的片段类型",
+        "min_duration": "最短片段时长",
+        "marker": "进度条显示片段标识",
+        "toast": "显示跳过提示"
       }
     },
     "cast": {

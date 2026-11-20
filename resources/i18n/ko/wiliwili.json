@@ -396,6 +396,9 @@
         "skip_hint2": "다음 비디오에서 오프닝 크레딧 건너뛰기 끄기",
         "skip_hint3": "다음 비디오의 커스텀 오프닝 크레딧을 사용",
         "skip_hint4": "다음 비디오에서 커스텀 오프닝 크레딧을 비활성화",
+        "sponsorblock": "광고 구간 건너뛰기",
+        "sponsorblock_hint1": "사용: SponsorBlock 광고 구간 자동 건너뛰기",
+        "sponsorblock_hint2": "사용 안 함: 광고 구간을 건너뛰지 않습니다",
         "wiki": "셰이더 작동 방식을 알아보려면 위키에 접속하세요"
       },
       "season": {
@@ -413,6 +416,24 @@
       },
       "shader": {
         "header": "셰이더"
+      },
+      "sponsorblock": {
+        "header": "후원 광고 설정",
+        "server": "서버 주소",
+        "server_hint": "변경 사항은 자동 저장됩니다 (재시작 불필요)",
+        "test": "서버 연결 테스트",
+        "test_hint": "눌러서 테스트",
+        "testing": "테스트 중...",
+        "test_ok": "연결 정상",
+        "test_fail": "연결 실패",
+        "mode": "건너뛰기 정책",
+        "mode0": "후원만",
+        "mode1": "후원 + 자기 홍보",
+        "mode2": "모든 건너뛰기 가능 세그먼트",
+        "mode_hint": "자동으로 건너뛸 세그먼트 유형 선택",
+        "min_duration": "최소 세그먼트 길이",
+        "marker": "진행 표시줄에 세그먼트 표시",
+        "toast": "건너뛰기 알림 표시"
       }
     },
     "cast": {

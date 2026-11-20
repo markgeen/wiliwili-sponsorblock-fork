@@ -157,9 +157,9 @@
     },
     "hot_keys": {
       "common_header": "Generale",
-      "common_content": " /  Cambia pagina principale\n /  Cambia pagina secondaria",
+      "common_content": "\uE0A4 / \uE0A5 Cambia pagina principale\n\uE0A6 / \uE0A7 Cambia pagina secondaria",
       "player_header": "Lettore",
-      "player_content": " Accelera, doppio click  per bloccare\n +  Vai avanti\n Mostra/Nascondi OSD lettore \n Mostra/Nascondi danmaku"
+      "player_content": "\uE0C5 Accelera, doppio click \uE0C5 per bloccare\n\uE0A3 + \uE0A5 Vai avanti\n\uE0A3 Mostra/Nascondi OSD lettore \n\uE0A2 Mostra/Nascondi danmaku"
     },
     "net": {
       "test": {
@@ -357,7 +357,7 @@
       "own": "Non puoi donare monete a te stesso",
       "run_out": "Il numero di monete per questo video è esaurito",
       "exp": "Esperienza + {}（Oggi {}/50）",
-      "exp_full": "L'esperienza guadagnata oggi è al massimo (50/50) ！",
+      "exp_full": "L'esperienza guadagnata oggi è al massimo (50/50) \uE87D！",
       "pcs": "{} pz"
     },
     "season_part": {
@@ -396,6 +396,9 @@
         "skip_hint2": "Disattiva il salto dei titoli di testa dal prossimo video",
         "skip_hint3": "Usa titoli di testa personalizzati dal prossimo video",
         "skip_hint4": "Disattiva i titoli di testa personalizzati dal prossimo video",
+        "sponsorblock": "Salta gli spot",
+        "sponsorblock_hint1": "Attivo: salta i segmenti pubblicitari di SponsorBlock",
+        "sponsorblock_hint2": "Disattivo: i segmenti pubblicitari non verranno saltati",
         "wiki": "Accedi alla nostra wiki per imparare come funziona lo shader"
       },
       "season": {
@@ -413,6 +416,24 @@
       },
       "shader": {
         "header": "Shader"
+      },
+      "sponsorblock": {
+        "header": "Impostazioni SponsorBlock",
+        "server": "Indirizzo server",
+        "server_hint": "Salvato automaticamente, senza riavvio",
+        "test": "Testa connessione server",
+        "test_hint": "Tocca per testare",
+        "testing": "Test in corso...",
+        "test_ok": "Connessione OK",
+        "test_fail": "Connessione fallita",
+        "mode": "Strategia di salto",
+        "mode0": "Solo sponsor",
+        "mode1": "Sponsor + autopromozione",
+        "mode2": "Tutti i segmenti saltabili",
+        "mode_hint": "Scegli quali segmenti saltare automaticamente",
+        "min_duration": "Durata minima segmento",
+        "marker": "Mostra segmenti sulla barra di avanzamento",
+        "toast": "Mostra notifica di salto"
       }
     },
     "cast": {

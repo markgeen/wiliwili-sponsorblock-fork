@@ -17,6 +17,7 @@ class BooleanCell;
 class DetailCell;
 class SliderCell;
 class RadioCell;
+class InputCell;
 class InputNumericCell;
 };  // namespace brls
 
@@ -81,6 +82,15 @@ private:
     BRLS_BIND(brls::BooleanCell, btnHighlight, "setting/video/highlight");
     BRLS_BIND(brls::DetailCell, btnSleep, "setting/sleep");
     BRLS_BIND(brls::BooleanCell, btnSkip, "setting/auto/skip");
+    BRLS_BIND(brls::BooleanCell, btnSponsorBlock, "setting/auto/sponsorblock");
+
+    // sponsorblock detailed setting
+    BRLS_BIND(brls::InputCell, sbServer, "setting/sponsorblock/server");
+    BRLS_BIND(brls::DetailCell, sbTest, "setting/sponsorblock/test");
+    BRLS_BIND(brls::DetailCell, sbMode, "setting/sponsorblock/mode");
+    BRLS_BIND(brls::SliderCell, sbMinDuration, "setting/sponsorblock/min_duration");
+    BRLS_BIND(brls::BooleanCell, sbMarker, "setting/sponsorblock/marker");
+    BRLS_BIND(brls::BooleanCell, sbToast, "setting/sponsorblock/toast");
 
     // equalizer setting
     BRLS_BIND(brls::RadioCell, btnEqualizerReset, "setting/equalizer/reset");

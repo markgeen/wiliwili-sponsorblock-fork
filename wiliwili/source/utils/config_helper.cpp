@@ -24,6 +24,7 @@
 #include "utils/thread_helper.hpp"
 #include "utils/image_helper.hpp"
 #include "utils/config_helper.hpp"
+#include "utils/sponsorblock_helper.hpp"
 
 #include "pystring.h"
 #include "utils/crash_helper.hpp"
@@ -119,6 +120,7 @@ using namespace brls::literals;
 std::unordered_map<SettingItem, ProgramOption> ProgramConfig::SETTING_MAP = {
     /// string
     {SettingItem::CUSTOM_UPDATE_API, {"custom_update_api", {}, {}, 0}},
+    {SettingItem::PLAYER_SPONSORBLOCK_SERVER, {"player_skip_sponsorblock_server", {}, {}, 0}},
     {SettingItem::APP_LANG,
      {"app_lang",
       {
@@ -191,6 +193,11 @@ std::unordered_map<SettingItem, ProgramOption> ProgramConfig::SETTING_MAP = {
     {SettingItem::PLAYER_BOTTOM_BAR, {"player_bottom_bar", {}, {}, 1}},
     {SettingItem::PLAYER_HIGHLIGHT_BAR, {"player_highlight_bar", {}, {}, 0}},
     {SettingItem::PLAYER_SKIP_OPENING_CREDITS, {"player_skip_opening_credits", {}, {}, 1}},
+    {SettingItem::PLAYER_SKIP_SPONSORBLOCK, {"player_skip_sponsorblock", {}, {}, 1}},
+    {SettingItem::PLAYER_SPONSORBLOCK_MARKER, {"player_skip_sponsorblock_marker", {}, {}, 1}},
+    {SettingItem::PLAYER_SPONSORBLOCK_TOAST, {"player_skip_sponsorblock_toast", {}, {}, 1}},
+    {SettingItem::PLAYER_SPONSORBLOCK_MIN_DURATION, {"player_skip_sponsorblock_min_duration", {}, {}, 0}},
+    {SettingItem::PLAYER_SPONSORBLOCK_MODE, {"player_skip_sponsorblock_mode", {}, {}, 1}},
     {SettingItem::PLAYER_LOW_QUALITY, {"player_low_quality", {}, {}, 1}},
 #if defined(IOS) || defined(__PSV__) || defined(__SWITCH__)
     {SettingItem::PLAYER_HWDEC, {"player_hwdec", {}, {}, 1}},
@@ -633,6 +640,18 @@ void ProgramConfig::load() {
 
     // 是否自动跳过片头片尾
     BasePlayerActivity::PLAYER_SKIP_OPENING_CREDITS = getBoolOption(SettingItem::PLAYER_SKIP_OPENING_CREDITS);
+
+    // 空降助手设置
+    {
+        auto& sponsorBlock = SponsorBlockHelper::instance();
+        sponsorBlock.ENABLED = getBoolOption(SettingItem::PLAYER_SKIP_SPONSORBLOCK);
+        sponsorBlock.SERVER =
+            getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_SERVER, std::string{"https://www.bsbsb.top"});
+        sponsorBlock.PROGRESS_MARK = getBoolOption(SettingItem::PLAYER_SPONSORBLOCK_MARKER);
+        sponsorBlock.SHOW_TOAST    = getBoolOption(SettingItem::PLAYER_SPONSORBLOCK_TOAST);
+        sponsorBlock.MIN_DURATION  = getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MIN_DURATION, int{0});
+        sponsorBlock.MODE          = getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MODE, int{1});
+    }
 
     // 初始化是否固定显示底部进度条
     VideoView::BOTTOM_BAR = getBoolOption(SettingItem::PLAYER_BOTTOM_BAR);

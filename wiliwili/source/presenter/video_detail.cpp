@@ -9,6 +9,7 @@
 #include "presenter/video_detail.hpp"
 #include "utils/config_helper.hpp"
 #include "utils/number_helper.hpp"
+#include "utils/sponsorblock_helper.hpp"
 #include "view/danmaku_core.hpp"
 #include "view/subtitle_core.hpp"
 #include "view/video_view.hpp"
@@ -269,6 +270,9 @@ void VideoDetail::requestVideoUrl(const std::string& bvid, uint64_t cid, bool re
     brls::Logger::debug("请求视频播放地址: {}/{}/{}", bvid, cid, defaultQuality);
     if (cid == 0) return;
 
+    // 空降助手：切换视频时拉取广告片段
+    SponsorBlockHelper::instance().setVideo(bvid, cid);
+
     BILI::get_video_url(
         bvid, cid, defaultQuality,
         [ASYNC_TOKEN](const bilibili::VideoUrlResult& result) {
@@ -304,6 +308,10 @@ void VideoDetail::requestSeasonVideoUrl(const std::string& bvid, uint64_t cid, b
 
     ASYNC_RETAIN
     brls::Logger::debug("请求番剧视频播放地址: {}", cid);
+
+    // 空降助手：切换视频时拉取广告片段
+    SponsorBlockHelper::instance().setVideo(bvid, cid);
+
     BILI::get_season_url(
         cid, defaultQuality,
         [ASYNC_TOKEN](const bilibili::SeasonUrlResult& result) {

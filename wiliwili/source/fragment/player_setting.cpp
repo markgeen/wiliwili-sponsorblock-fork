@@ -9,6 +9,7 @@
 #include <borealis/views/cells/cell_input.hpp>
 
 #include "utils/config_helper.hpp"
+#include "utils/sponsorblock_helper.hpp"
 #include "utils/shader_helper.hpp"
 #include "utils/number_helper.hpp"
 #include "utils/activity_helper.hpp"
@@ -136,6 +137,97 @@ void PlayerSetting::setupCommonSetting() {
                       brls::Application::notify(hint);
                       GA("player_setting", {{"skip", value ? "true" : "false"}});
                   });
+
+    /// Skip sponsor segments via SponsorBlock (空降助手)
+    btnSponsorBlock->init("wiliwili/player/setting/common/sponsorblock"_i18n,
+                          conf.getBoolOption(SettingItem::PLAYER_SKIP_SPONSORBLOCK), [](bool value) {
+                              ProgramConfig::instance().setSettingItem(SettingItem::PLAYER_SKIP_SPONSORBLOCK, value);
+                              SponsorBlockHelper::instance().ENABLED = value;
+                              brls::Application::notify(
+                                  value ? "wiliwili/player/setting/common/sponsorblock_hint1"_i18n
+                                        : "wiliwili/player/setting/common/sponsorblock_hint2"_i18n);
+                              GA("player_setting", {{"sponsorblock", value ? "true" : "false"}});
+                          });
+
+    /// 空降助手详细设置
+    {
+        const std::string defaultServer = "https://www.bsbsb.top";
+        std::vector<std::string> modes = {
+            "wiliwili/player/setting/sponsorblock/mode0"_i18n,
+            "wiliwili/player/setting/sponsorblock/mode1"_i18n,
+            "wiliwili/player/setting/sponsorblock/mode2"_i18n,
+        };
+
+        sbServer->init("wiliwili/player/setting/sponsorblock/server"_i18n,
+                       conf.getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_SERVER, defaultServer),
+                       [](const std::string& data) {
+                           auto server = pystring::strip(data);
+                           if (server.empty()) server = "https://www.bsbsb.top";
+                           while (!server.empty() && server.back() == '/') server.pop_back();
+                           ProgramConfig::instance().setSettingItem(SettingItem::PLAYER_SPONSORBLOCK_SERVER, server);
+                           SponsorBlockHelper::instance().SERVER = server;
+                       },
+                       "wiliwili/player/setting/sponsorblock/server_hint"_i18n,
+                       "wiliwili/player/setting/sponsorblock/server_hint"_i18n, 128);
+
+        sbTest->setText("wiliwili/player/setting/sponsorblock/test"_i18n);
+        sbTest->setDetailText("wiliwili/player/setting/sponsorblock/test_hint"_i18n);
+        sbTest->registerClickAction([this](View* view) {
+            sbTest->setDetailText("wiliwili/player/setting/sponsorblock/testing"_i18n);
+            SponsorBlockHelper::instance().testConnection([](bool ok, const std::string& detail) {
+                brls::sync([ok, detail]() {
+                    brls::Application::notify(
+                        (ok ? "wiliwili/player/setting/sponsorblock/test_ok"_i18n
+                            : "wiliwili/player/setting/sponsorblock/test_fail"_i18n) + ": " + detail);
+                });
+            });
+            return true;
+        });
+
+        int mode = conf.getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MODE, int{1});
+        if (mode < 0 || mode > 2) mode = 1;
+        sbMode->setText("wiliwili/player/setting/sponsorblock/mode"_i18n);
+        sbMode->setDetailText(modes[mode]);
+        sbMode->registerClickAction([this, modes](View* view) {
+            BaseDropdown::text("wiliwili/player/setting/sponsorblock/mode"_i18n, modes,
+                               [this, modes](int data) {
+                                   sbMode->setDetailText(modes[data]);
+                                   ProgramConfig::instance().setSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MODE, data);
+                                   SponsorBlockHelper::instance().MODE = data;
+                               },
+                               ProgramConfig::instance().getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MODE, int{1}),
+                               "wiliwili/player/setting/sponsorblock/mode_hint"_i18n);
+            return true;
+        });
+
+        int minDuration = conf.getSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MIN_DURATION, int{0});
+        if (minDuration < 0) minDuration = 0;
+        if (minDuration > 30) minDuration = 30;
+        sbMinDuration->slider->setStep(1.0f / 30);
+        sbMinDuration->setDetailText(std::to_string(minDuration) + "s");
+        sbMinDuration->init("wiliwili/player/setting/sponsorblock/min_duration"_i18n, minDuration / 30.0f,
+                            [this](float value) {
+                                int seconds = static_cast<int>(value * 30 + 0.5f);
+                                if (seconds < 0) seconds = 0;
+                                if (seconds > 30) seconds = 30;
+                                sbMinDuration->setDetailText(std::to_string(seconds) + "s");
+                                ProgramConfig::instance().setSettingItem(
+                                    SettingItem::PLAYER_SPONSORBLOCK_MIN_DURATION, seconds);
+                                SponsorBlockHelper::instance().MIN_DURATION = seconds;
+                            });
+
+        sbMarker->init("wiliwili/player/setting/sponsorblock/marker"_i18n,
+                       conf.getBoolOption(SettingItem::PLAYER_SPONSORBLOCK_MARKER), [](bool value) {
+                           ProgramConfig::instance().setSettingItem(SettingItem::PLAYER_SPONSORBLOCK_MARKER, value);
+                           SponsorBlockHelper::instance().PROGRESS_MARK = value;
+                       });
+
+        sbToast->init("wiliwili/player/setting/sponsorblock/toast"_i18n,
+                      conf.getBoolOption(SettingItem::PLAYER_SPONSORBLOCK_TOAST), [](bool value) {
+                          ProgramConfig::instance().setSettingItem(SettingItem::PLAYER_SPONSORBLOCK_TOAST, value);
+                          SponsorBlockHelper::instance().SHOW_TOAST = value;
+                      });
+    }
 
     /// player strategy
     int strategyIndex = conf.getIntOption(SettingItem::PLAYER_STRATEGY);
