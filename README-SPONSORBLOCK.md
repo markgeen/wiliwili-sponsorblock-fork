@@ -4,6 +4,14 @@
 >
 > 上游 [Issue #656](https://github.com/xfangfang/wiliwili/issues/656) 中维护者已明确表示不希望加入跳过广告功能（广告是 UP 主的收入来源），因此**本 fork 不会向原作者提交 PR / 合并请求**。请尊重上游维护者的决定。
 
+## 致谢与声明
+
+本仓库是个人修改版本，**特别感谢原作者 xfangfang 及 [wiliwili 原项目](https://github.com/xfangfang/wiliwili)** —— 正是基于他们优秀的开源工作，才有了这个客户端以及本 fork 的全部基础。本 fork 仅用于个人学习与自定义用途，所有原始代码版权归原作者及原项目贡献者所有。若原作者不希望此修改版公开，我会立即删除本仓库。
+
+同时感谢：
+- [hanydd/BilibiliSponsorBlock](https://github.com/hanydd/BilibiliSponsorBlock) 与 `bsbsb.top` 提供的空降助手标注数据与服务
+- 参考项目 `kurikomoe/MakeBLiveGreatAgain` 在进度条标注与跳过判定逻辑上的启发
+
 ## 本 Fork 新增的功能
 
 1. **自动跳过恰饭片段**：播放视频/番剧时，用当前 BVID + CID 请求空降助手 API，命中广告区间自动 seek 到片段末尾并弹出 OSD 提示。
@@ -65,4 +73,4 @@ cmake --build cmake-build-switch -j4
 
 - 原项目：[xfangfang/wiliwili](https://github.com/xfangfang/wiliwili)
 - 空降助手：[hanydd/BilibiliSponsorBlock](https://github.com/hanydd/BilibiliSponsorBlock) 及 `bsbsb.top` 服务
-- 参考实现：[MakeBLiveGreatAgain](https://github.com/) 的进度条标注与跳过判定逻辑
+- 参考实现：`kurikomoe/MakeBLiveGreatAgain` 的进度条标注与跳过判定逻辑
